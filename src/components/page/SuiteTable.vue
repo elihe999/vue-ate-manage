@@ -34,7 +34,7 @@
                 </el-table-column>
             </el-table>
             <div class="pagination">
-                <el-pagination background @current-change="handleCurrentChange" layout="prev, pager, next" :total="1000">
+                <el-pagination background @current-change="handleCurrentChange" layout="prev, pager, next" :total=total>
                 </el-pagination>
             </div>
         </div>
@@ -86,11 +86,13 @@
                     date: '',
                     pass: '',
                 },
-                idx: -1
+                idx: -1,
+                total: 100
             }
         },
         created() {
-            this.getData();
+            this.getData()
+            this.getPage()
         },
         computed: {
             data() {
@@ -129,6 +131,14 @@
                     page: this.cur_page
                 }).then((res) => {
                     this.tableData = res.data.list;
+                })
+            },
+            getPage() {
+                this.url = "/index.php/ReturnView/pagination/suite/" + localStorage.getItem('ms_username');
+                console.log(localStorage.getItem('ms_username'));
+                this.$axios.get(this.url).then((res) => {
+                    this.total = res.data.number;
+                    console.log(res.data);
                 })
             },
             search() {

@@ -54,11 +54,6 @@
                         title: '数据记录'
                     },
                     {
-                        icon: 'el-icon-s-order',
-                        index: 'suite',
-                        title: '测试用例'
-                    },
-                    {
                         icon: 'el-icon-lx-warn',
                         index: '3',
                         title: '错误处理',

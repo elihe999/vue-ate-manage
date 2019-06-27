@@ -25,18 +25,6 @@ export default new Router({
                     meta: { title: 'Recode' }
                 },
                 {
-                    path: '/data',
-                    name: 'data',
-                    component: resolve => require(['../components/page/DataTable.vue'], resolve),
-                    meta: { title: 'Table' }
-                },
-                {
-                    path: '/suite',
-                    name: 'suite',
-                    component: resolve => require(['../components/page/SuiteTable.vue'], resolve),
-                    meta: { title: 'Suite' }
-                },
-                {
                     path: '/select',
                     name: 'selectcase',
                     component: resolve => require(['../components/page/SelectCase.vue'], resolve),
