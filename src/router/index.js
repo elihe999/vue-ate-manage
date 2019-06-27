@@ -25,11 +25,6 @@ export default new Router({
                     meta: { title: 'Recode' }
                 },
                 {
-                    path: '/test',
-                    component: resolve => require(['../components/page/SuiteTable.vue'], resolve),
-                    meta: { title: 'test' }
-                },
-                {
                     path: '/select',
                     name: 'selectcase',
                     component: resolve => require(['../components/page/SelectCase.vue'], resolve),

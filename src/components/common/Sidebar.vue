@@ -43,20 +43,15 @@
                         index: 'dashboard',
                         title: '系统首页'
                     },
-                    // {
-                    //     icon: 'el-icon-s-order',
-                    //     index: 'select',
-                    //     title: '构造用例'
-                    // },
-                    // {
-                    //     icon: 'el-icon-s-order',
-                    //     index: 'history',
-                    //     title: '数据记录'
-                    // },
                     {
                         icon: 'el-icon-s-order',
-                        index: 'test',
-                        title: 'test'
+                        index: 'select',
+                        title: '构造用例'
+                    },
+                    {
+                        icon: 'el-icon-s-order',
+                        index: 'history',
+                        title: '数据记录'
                     },
                     {
                         icon: 'el-icon-lx-warn',
