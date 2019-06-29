@@ -40,18 +40,28 @@
                 items: [
                     {
                         icon: 'el-icon-lx-home',
-                        index: 'dashboard',
+                        index: '/dashboard',
                         title: '系统首页'
                     },
                     {
                         icon: 'el-icon-s-order',
-                        index: 'select',
+                        index: '/select',
                         title: '构造用例'
                     },
                     {
                         icon: 'el-icon-s-order',
-                        index: 'history',
-                        title: '数据记录'
+                        index: '2',
+                        title: 'History',
+                        subs: [
+                            {
+                                index: '/history/case',
+                                title: 'History Case'
+                            },
+                            {
+                                index: '/history/suite',
+                                title: 'History Suite'
+                            },
+                        ]
                     },
                     {
                         icon: 'el-icon-lx-warn',

@@ -3,7 +3,7 @@
         <ul>
             <li class="tags-li" v-for="(item,index) in tagsList" :class="{'active': isActive(item.path)}" :key="index">
                 <router-link :to="item.path" class="tags-li-title">
-                    {{item.title}}
+                    {{item.title}}<template v-if="item.path=='/history/case'">-Case</template><template v-if="item.path=='/history/suite'">-Suite</template>
                 </router-link>
                 <span class="tags-li-icon" @click="closeTags(index)"><i class="el-icon-close"></i></span>
             </li>

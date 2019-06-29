@@ -20,7 +20,8 @@ export default new Router({
                     meta: { title: 'Home' }
                 },
                 {
-                    path: '/history',
+                    path: '/history/:type',
+                    name: 'history',
                     component: resolve => require(['../components/page/HistoryTable.vue'], resolve),
                     meta: { title: 'Recode' }
                 },
