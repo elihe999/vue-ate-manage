@@ -16,12 +16,12 @@
                 <el-table-column type="selection" width="50" align="center"></el-table-column>
                 <el-table-column v-if="type == 'CASE'" prop="date" label="Date" sortable width="150">
                 </el-table-column>
-                <el-table-column v-if="type == 'CASE'" prop="name" label="Name" sortable width="160">
+                <el-table-column v-if="type == 'CASE'" prop="name" label="Name" sortable width="180">
                     <template slot-scope="scope">
                         <el-button type="text" @click="goData(scope.$index, scope.row)">{{ scope.row.name }}</el-button>
                     </template>
                 </el-table-column>
-                <el-table-column v-if="type == 'CASE'" prop="path" label="Path" sortable width="200">
+                <el-table-column v-if="type == 'CASE'" prop="path" label="Path" sortable width="220">
                 </el-table-column>
                 <el-table-column v-if="type == 'CASE'" prop="time" label="Time" sortable width="130">
                 </el-table-column>
@@ -34,7 +34,7 @@
                 <!-- -->
                 <el-table-column v-if="type == 'SUITE'" prop="time" label="Date" sortable width="130">
                 </el-table-column>
-                <el-table-column v-if="type == 'SUITE'" prop="path" label="Path" sortable width="200">
+                <el-table-column v-if="type == 'SUITE'" prop="path" label="Path" sortable width="330">
                 </el-table-column>
                 <el-table-column v-if="type == 'SUITE'" prop="passnum" label="Pass" sortable width="80">
                 </el-table-column>
@@ -44,8 +44,8 @@
                 </el-table-column>
                 <el-table-column v-if="type == 'SUITE'" prop="totalnum" label="Total" sortable width="80">
                 </el-table-column>
-                <!-- <el-table-column v-if="type == 'SUITE'" label="Pass Rate" sortable width="80"> -->
-                <!-- </el-table-column> -->
+                <el-table-column v-if="type == 'SUITE'" prop="passrate" label="Pass Rate" sortable width="100">
+                </el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template slot-scope="scope">
                         <el-button type="text" icon="el-icon-delete" class="red"
@@ -89,8 +89,7 @@ export default {
             },
             idx: -1,
             total: 100,
-            type: "",
-            passrate: this.totalnum
+            type: ""
         }
     },
     created() {
@@ -125,7 +124,6 @@ export default {
             this.getData();
         },
         getData() {
-            console.log(this.passrate)
             let required_url = ""
             if (this.type == "case".toUpperCase()) {
                 required_url = this.url + 'case/' + localStorage.getItem('ms_username') + "/" + this.cur_page + "/10" + "/path" + "/0";
@@ -133,8 +131,43 @@ export default {
             else if (this.type == "suite".toUpperCase()) {
                 required_url = this.url + 'suite/' + localStorage.getItem('ms_username') + "/" + this.cur_page + "/10" + "/path" + "/0";
             }
+            this.tableData = [];
+            console.log(this.$refs);
             this.$axios.get(required_url).then((res) => {
-                this.tableData = res.data.list;
+                if (this.type == "case".toUpperCase()) {
+                    for (var i = 0,l=res.data.list.length;i<l;i++) {
+                        let temp_number = Number(res.data.list[i].date)
+                        let display_time = new Date(temp_number * 1000);
+                        display_time = display_time.toLocaleString('en', { style: 'decimal', hour12: false});
+                        this.tableData.push({
+                            name: res.data.list[i].name,
+                            numc: res.data.list[i].numc,
+                            loopc: res.data.list[i].loopc,
+                            path: res.data.list[i].path,
+                            username: res.data.list[i].username,
+                            date: display_time.split(',')[0],
+                            time: res.data.list[i].time,
+                            fail_res: res.data.list[i].fail_res,
+                            result: res.data.list[i].result
+                        })
+                    }
+                } else if (this.type == "suite".toUpperCase()) {
+                    for (var i = 0,l=res.data.list.length;i<l;i++) {
+                        let temp_number = Number(res.data.list[i].time)
+                        let display_time = new Date(temp_number * 1000);
+                        display_time = display_time.toLocaleString('en', { style: 'decimal', hour12: false});
+                        this.tableData.push({
+                            failnum: res.data.list[i].failnum,
+                            passnum: res.data.list[i].passnum,
+                            warnnum: res.data.list[i].warnnum,
+                            totalnum: res.data.list[i].totalnum,
+                            username: res.data.list[i].username,
+                            time: display_time.split(',')[0],
+                            path: res.data.list[i].path,
+                            passrate: Math.floor((res.data.list[i].passnum/res.data.list[i].totalnum)*100)/100
+                        })
+                    }
+                }
             })
         },
         search() {
