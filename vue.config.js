@@ -1,7 +1,11 @@
+const port = 7070;
+const title = 'vue example';
+
 module.exports = {
     publicPath: './',
     productionSourceMap: false,
     devServer: {
+        port: port,
         proxy: {
             '/api': {
                 target: 'http://192.168.92.210:10003/index.php',
@@ -19,5 +23,8 @@ module.exports = {
                 changeOrigin: true
             }
         }
+    },
+    configureWebpack: {
+        name: title
     }
 }
