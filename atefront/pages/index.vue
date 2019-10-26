@@ -14,8 +14,11 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
-
 export default {
+  // layout: 'app',
+  mounted() {
+    console.log(this.$store)
+  },
   components: {
     Logo
   }
